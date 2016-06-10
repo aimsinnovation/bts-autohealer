@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration.Install;
@@ -87,13 +86,13 @@ namespace Aims.BizTalk.Autohealer
         private static string FormatCommandLineArgument(string s)
         {
             string arg = s.Trim().Trim('"');
-            return arg.IndexOf(' ') == -1 ? arg : $@"""{arg}""";
+            return arg.IndexOf(' ') == -1 ? arg : "\"" + arg + "\"";
         }
 
         private static void SetContext(Installer installer)
         {
             installer.Context = new InstallContext("",
-                new[] {$"/assemblypath={installer.GetType().Assembly.Location}"});
+                new[] { "/assemblypath=" + installer.GetType().Assembly.Location });
         }
     }
 }

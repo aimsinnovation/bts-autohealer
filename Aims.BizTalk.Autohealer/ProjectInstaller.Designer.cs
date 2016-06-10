@@ -39,7 +39,7 @@
             // 
             // serviceInstaller
             // 
-            this.serviceInstaller.DisplayName = "AIMS BizTalk Autohealer";
+            this.serviceInstaller.DisplayName = "AIMS BTS Autohealer";
             this.serviceInstaller.ServiceName = "aims-bts-autohealer";
             this.serviceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 

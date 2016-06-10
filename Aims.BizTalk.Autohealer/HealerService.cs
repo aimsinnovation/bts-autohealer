@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
 
@@ -25,23 +26,30 @@ namespace Aims.BizTalk.Autohealer
 
         private static void Iteration(object state)
         {
-            var tracker = new NodeTracker();
-
-            while (_isRunning)
+            try
             {
-                try
-                {
-                    foreach (var node in tracker.CheckNodes())
-                    {
-                        BizTalkHelper.StartHostInstance(node);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                var tracker = new NodeTracker();
 
-                Thread.Sleep(1000);
+                while (_isRunning)
+                {
+                    try
+                    {
+                        foreach (Node node in tracker.CheckNodes())
+                        {
+                            BizTalkHelper.StartHostInstance(node);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        EventLog.WriteEntry(Constants.ServiceName, ex.ToString(), EventLogEntryType.Error);
+                    }
+
+                    Thread.Sleep(30 * 1000);
+                }
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry(Constants.ServiceName, ex.ToString(), EventLogEntryType.Error);
             }
         }
     }

@@ -4,10 +4,10 @@ namespace Aims.BizTalk.Autohealer
     {
         public long Id { get; set; }
         
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         public string Name { get; set; }
 
-        public string Status { get; set; }
+        public int Status { get; set; }
     }
 }
